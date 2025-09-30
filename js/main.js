@@ -17,7 +17,7 @@ console.log("Fecha de nacimiento: " + nacimiento);
 
 // Otras practicas.
 const titulo = document.getElementById("titulo"); 
-titulo.textContent = "AlacenaApp | Gestiona tus alimentos";
+titulo.textContent = "AlacenaApp";
 
 
 //AlmacenApp | Gestor de alimentos.
