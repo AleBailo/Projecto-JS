@@ -23,56 +23,93 @@ titulo.textContent = "AlacenaApp";
 
 //AlmacenApp | Gestor de alimentos.
 
-// Registrar usuario por primera vez.
-let nuevoUsuario = prompt("Ingrese un nombre de usuario para registrarse:");
-usuariosRegistrados.push(nuevoUsuario);
-console.log("Nuevo usuario registrado: " + nuevoUsuario);
+// Registro de usuario.
+// Array para guardar la información del usuario.
+let usuarioRegistrado = [];
 
-let nuevaContraseña = prompt("Cree una contraseña para su cuenta:");
-console.log("Contraseña creada para el usuario " + nuevoUsuario);
-alert("Usuario creado exitosamente!");
+// Formulario de registro de usuario.
+let mail = prompt("Ingrese un email para registrarse:");
+let nuevoUsuario = prompt("Ingrese su nombre de usuario:");
+let nuevaContraseña = prompt("Ingrese una contraseña para su cuenta:");
+let confirmarContraseña = prompt("Confirme su contraseña:");
 
-// Validación de usuario: Usuario registrado. (que pasa cuando no es uno de estos?)
-const usuariosRegistrados = ["Alejandro", "Maria", "Juan"];
-if (usuariosRegistrados.includes(usuario)) {
-    console.log("Usuario " + usuario + " reconocido. Puedes colaborar en la lista.");
+// Validación de la información y contraseña.
+if (!mail || !nuevoUsuario || !nuevaContraseña) {
+    alert("Todos los campos son obligatorios.");
+} else if (nuevaContraseña !== confirmarContraseña) {
+    alert("Las contraseñas no coinciden. Intente nuevamente.");
 } else {
-    console.log("Usuario no reconocido. Por favor, regístrate para colaborar.");
+    // Guardar la información del usuario en el array.
+    usuarioRegistrado.push({
+        mail: mail,
+        usuario: nuevoUsuario,
+        contraseña: nuevaContraseña
+    });
+
+    console.log("¡Bienvenido " + nuevoUsuario + "!");
+    alert("¡Bienvenido " + nuevoUsuario + "!");
 }
 
-// Uso de For para crear 3 intentos de ingreso de contraseña.
-let intentos = 3;
-let accesoConcedido = false;
+// Ingreso de usuario registrado.
+let ingresar = true;
 
-for (let i = 0; i < intentos; i++) {
-    let usuarioIngreso = prompt("Ingrese su nombre de usuario:");
-    let contraseñaIngreso = prompt("Ingrese su contraseña:");
+while (ingresar) {
+    let usuarioInput = prompt("Ingrese su nombre de usuario o mail:");
 
-    if (usuarioIngreso === nuevoUsuario && contraseñaIngreso === nuevaContraseña) {
-        accesoConcedido = true;
-        console.log("Bienvenido " + usuarioIngreso + "!");
-        alert("Bienvenido " + usuarioIngreso + "!");
-        break;
+    // Validar los datos con el Array.
+    let usuarioValido = usuarioRegistrado.find((u) => u.usuario === usuarioInput || u.mail === usuarioInput);
+
+    if (!usuarioValido) {
+        alert("Usuario no encontrado. Verifique que los datos sean correctos.");
     } else {
-        console.log("Contraseña incorrecta. Intento " + (i + 1) + " de " + intentos + ".");
-        alert("Contraseña incorrecta. Intento " + (i + 1) + " de " + intentos + ".");
+        let intentos = 3;
+        let contraseñaCorrecta = false;
+
+        for (let i = 0; i < intentos; i++) {
+            let contraseñaInput = prompt("Ingrese su contraseña nuevamente (Intento " + (i + 1) + " de " + intentos + "):");
+
+            if (isuarioValido.contraseña === contraseñaInput) {
+                accesoConcedido = true;
+                alert("¡Bienvenido " + usuarioValido.usuario + ".");
+                console.log("¡Bienvenido " + usuarioValido.usuario + ".");
+                ingresar = false;
+                break;
+            } else {
+                alert("Contraseña incorrecta. Intente nuevamente." + (i + 1) + " de " + intentos + " intentos.");
+                console.log("Contraseña incorrecta. Intente nuevamente." + (i + 1) + " de " + intentos + " intentos.");
+            }
+        }
+
+        if (!accesoConcedido) {
+            alert("Has realizado 3 intentos de contraseña. Vuelve a intentarlo mas tarde.");
+            console.log("Has realizado 3 intentos de contraseña. Vuelve a intentarlo mas tarde.");
+            ingresar = false;
+        }
+    }
+
+
+
+    // Opción para reintentar o salir.
+    if (ingresar) {
+        let reintentar = prompt("¿Desea reintentar el ingreso? (si/no):").toLowerCase();
+        if (reintentar !== "si") {
+            ingresar = false;
+            console.log("Vuelva a internarlo más tarde.");
+            alert("Vuelva a internarlo más tarde.");
+        }
     }
 }
 
-if (!accesoConcedido) {
-    console.log("Excediste los 3 intentos, vuelve a intentarlo más tarde.");
-    alert("Excediste los 3 intentos, vuelve a intentarlo más tarde.");
-}
+
+// ----------------------------------------------------------------
 
 // Uso de Función para saludar al usuario.
 function saludar(nombre) {
-    console.log("Hola " + nombre + ", bienvenido a AlmacenApp!");
-    alert("Hola " + nombre + ", bienvenido a AlmacenApp!");
+    console.log("Hola " + nombre + ", Bienvenido a AlmacenApp!");
+    alert("Hola " + nombre + ", Bienvenido a AlmacenApp!");
 }
 
-saludar("Alejandro");
-saludar("Juan");
-saludar("María");
+saludar(nuevoUsuario);
 
 // ----------------------------------------------------------------
 
@@ -99,7 +136,7 @@ while (agregarProducto) {
         fechasCaducidad.push(fechaCaducidad);
     }
 
-     // Pregunta para continuar o no.
+    // Pregunta para continuar o no.
     let continuar = prompt("¿Desea agregar otro producto? (si/no):").toLowerCase();
     if (continuar !== "si") {
         agregarProducto = false;
@@ -113,9 +150,9 @@ alert("Gracias, puede agregar un nuevo producto cuando lo desees.");
 
 
 // Suma de cantidad de items agregados con Función flecha.
-const sumarItems = (arr) => arr.reduce(( total, num) => total + num, 0);
+const sumarItems = (arr) => arr.reduce((total, num) => total + num, 0);
 
-let totalItems = sumarItems(cantidades); 
+let totalItems = sumarItems(cantidades);
 
 console.log("Total de items agregados: " + totalItems);
 alert("Total de items agregados: " + totalItems);
