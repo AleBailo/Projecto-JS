@@ -90,28 +90,36 @@ saludar(nuevoUsuario);
 
 // ----------------------------------------------------------------
 
-// Ingreso de productos con While y array.
-let agregarProducto = true;
-
+// Ingreso de productos con función, while y array.
 // Arrays para guardar los ingresos.
 let productos = [];
 let cantidades = [];
 let fechasCaducidad = [];
+
+function agregarProductoAlista(producto, cantidad, fechaCaducidad) {
+    if (producto && !isNaN(cantidad) && cantidad > 0 && fechaCaducidad) {
+        productos.push(producto);
+        cantidades.push(cantidad);
+        fechasCaducidad.push(fechaCaducidad);
+
+        console.log("Producto agregado: " + producto + ", Cantidad: " + cantidad + ", Vence el: " + fechaCaducidad);
+        alert("Producto agregado: " + producto + "\nCantidad: " + cantidad + "\nFecha de vencimiento: " + fechaCaducidad);
+    } else {
+        console.log("Producto inválido. Ingrese los campos correctamente.");
+        alert("Producto inválido. Ingrese los campos correctamente.");
+    }
+}
+
+// Bucle para agregar productos.
+
+let agregarProducto = true;
 
 while (agregarProducto) {
     let producto = prompt("Ingrese el producto:");
     let cantidad = Number(prompt("Ingrese la cantidad:"));
     let fechaCaducidad = prompt("Ingrese la fecha de vencimiento (DD/MM/AAAA):");
 
-    console.log("Producto: " + producto + ", Cantidad: " + cantidad + ", Vence el: " + fechaCaducidad);
-    alert("Producto agregado: " + producto + "\nCantidad: " + cantidad + "\nFecha de vencimiento: " + fechaCaducidad);
-
-    // Guardar en arrays.
-    if (producto && !isNaN(cantidad) && cantidad > 0 && fechaCaducidad) {
-        productos.push(producto);
-        cantidades.push(cantidad);
-        fechasCaducidad.push(fechaCaducidad);
-    }
+    agregarProductoAlista(producto, cantidad, fechaCaducidad);
 
     // Pregunta para continuar o no.
     let continuar = prompt("¿Desea agregar otro producto? (si/no):").toLowerCase();
