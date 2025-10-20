@@ -1,26 +1,3 @@
-// Variable: espacio de memoria reservado para información importante de nuestro sitio web.
-
-// Declaración:
-let cliente;
-
-//Asignación de variables:
-cliente = "Alejandro Bailo";
-console.log("Alumno: " + cliente);
-
-//Inicializar variables: 
-let edad = 34;
-console.log("Edad: " + edad);
-
-//Const: es una variable que no puede ser modificada.
-const nacimiento = 1990;
-console.log("Fecha de nacimiento: " + nacimiento);
-
-// Otras practicas.
-const titulo = document.getElementById("titulo");
-titulo.textContent = "AlacenaApp";
-
-// ----------------------------------------------------------------
-
 //AlmacenApp | Gestor de alimentos.
 
 // Registro de usuario.
@@ -68,7 +45,7 @@ while (ingresar) {
         for (let i = 0; i < intentos; i++) {
             let contraseñaInput = prompt("Ingrese su contraseña nuevamente (Intento " + (i + 1) + " de " + intentos + "):");
 
-            if (isuarioValido.contraseña === contraseñaInput) {
+            if (usuarioValido.contraseña === contraseñaInput) {
                 accesoConcedido = true;
                 alert("¡Bienvenido " + usuarioValido.usuario + ".");
                 console.log("¡Bienvenido " + usuarioValido.usuario + ".");
