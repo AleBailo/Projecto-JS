@@ -11,8 +11,69 @@
 
 <body>
     <!-- Header -->
-    <h1 id="titulo">AlacenaApp | Gestiona tus alimentos</h1>
-    <p id="descripcion">Ingresá los alimentos que quieres agregar a tu lista.</p>
+    <h1 id="titulo">AlacenaApp</h1>
+    <h3>Gestiona tus alimentos</h3>
+
+    <!-- Formulario de productos -->
+
+    <section>
+        <div>
+            <label for="lista">Lista:</label>
+            <input type="text" id="lista" name="lista" placeholder="Ingresa el nombre de la lista" required>
+        </div>
+        <form id="formProductos">
+            <p id="descripcion">Ingresá los alimentos que quieres agregar a tu lista.</p>
+            <div>
+                <label for="producto">Producto:</label>
+                <input type="text" id="producto" name="producto" placeholder="Ingresa el nombre del producto" required>
+            </div>
+            <div>
+                <label for="cantidad">Cantidad:</label>
+                <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" required>
+            </div>
+            <div>
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" id="categoria" name="categoria">
+                    <option value="lacteos">Lacteos</option>
+                    <option value="carnes">Carnes</option>
+                    <option value="legumbres">Legumbres</option>
+                    <option value="cereales">Cereales</option>
+                    <option value="verduras">Verduras</option>
+                    <option value="frutas">Frutas</option>
+                    <option value="bebidas">Bebidas</option>
+                    <option value="limpieza">Limpieza</option>
+                    <option value="cuidadopersonal">Cuidado personal</option>
+                </select>
+            </div>
+            <button type="submit">Agregar producto</button>
+        </form>
+    </section>
+
+    <!-- Lista de productos -->
+    <!-- Los productos se agregarán a medida que se vayan cargando. Al lado un edit y un borra -->
+    <section>
+        <ul id="listaProductos"></ul>
+    </section>
+
+    <!-- Acciones -->
+    <section>
+        <h5>Acciones</h5>
+        <button id="botonCrearLista">Crear lista</button>
+        <button id="botonBorrarTodo">Borrar todo</button>
+        <button id="botonCompartir">Compartir</button>
+    </section>
+
+    <!-- Mis listas -->
+    <section>
+        <h4>Mis listas</h4>
+        <ul id="misListas"></ul>
+        <!-- Las listas se agregan en este espacio -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>AlmacenApp &copy; 2025 - Todos los derechos reservados</p>
+    </footer>
 </body>
 
 </html>

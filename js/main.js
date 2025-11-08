@@ -1,165 +1,124 @@
-//AlmacenApp | Gestor de alimentos.
+// Crear listado de productos
+// No esta contemplado las acciones de compartir listas ni el ingreso y edición a listas ya creadas.
 
-// Registro de usuario.
-// Array para guardar la información del usuario.
-let usuarioRegistrado = [];
+document.addEventListener("DOMContentLoaded", () => {
 
-// Formulario de registro de usuario.
-let mail = prompt("Ingrese un email para registrarse:");
-let nuevoUsuario = prompt("Ingrese su nombre de usuario:");
-let nuevaContraseña = prompt("Ingrese una contraseña para su cuenta:");
-let confirmarContraseña = prompt("Confirme su contraseña:");
+    // Elementos en el html
+    const formProducto = document.getElementById("formProductos");
+    const listaProductos = document.getElementById("listaProductos");
+    const agregarProducto = document.getElementById("agregarProducto");
+    const botonCrearLista = document.getElementById("botonCrearLista");
+    const botonBorrarTodo = document.getElementById("botonBorrarTodo");
+    const botonCompartir = document.getElementById("botonCompartir");
+    const inputLista = document.getElementById("lista");
+    const misListas = document.getElementById("misListas");
 
-// Validación de la información y contraseña.
-if (!mail || !nuevoUsuario || !nuevaContraseña) {
-    alert("Todos los campos son obligatorios.");
-} else if (nuevaContraseña !== confirmarContraseña) {
-    alert("Las contraseñas no coinciden. Intente nuevamente.");
-} else {
-    // Guardar la información del usuario en el array.
-    usuarioRegistrado.push({
-        mail: mail,
-        usuario: nuevoUsuario,
-        contraseña: nuevaContraseña
+    // Recuperar listas del localStorage 
+    let productos = JSON.parse(localStorage.getItem("productosTemporales")) || [];
+    let listas = JSON.parse(localStorage.getItem("listas")) || [];
+
+    // Función para renderizar la lista de productos
+    function crearProducto(producto) {
+        const li = document.createElement("li");
+        li.innerHTML = `${producto.nombre} - Cantidad: - Categoría: ${producto.categoria}
+                        <button class="restar">-</button>
+                        <span class="cantidad" ${producto.cantidad} </span>
+                        <button class="sumar">+</button>
+                        <button class="borrar">Borrar</button>`;
+
+        // Botones para sumar, restar y borrar
+        li.querySelector(".sumar").addEventListener("click", () => {
+            producto.cantidad++;
+            li.querySelector(".cantidad").textContent = producto.cantidad;
+        });
+
+        li.querySelector(".restar").addEventListener("click", () => {
+            if (producto.cantidad > 1) {
+                producto.cantidad--;
+                li.querySelector(".cantidad").textContent = producto.cantidad;
+            }
+        });
+
+        li.querySelector(".borrar").addEventListener("click", () => {
+            listaProductos.removeChild(li);
+            productos = productos.filter(p => p !== producto);
+        });
+
+        return li;
+
+
+    }
+
+    //Guardar productos en el localStorage al cargar la página
+    function guardarProductos() {
+        localStorage.setItem("productos", JSON.stringify(productos));
+    }
+
+    //Cargar productos guardados al iniciar
+    productos.forEach(producto => {
+        listaProductos.appendChild(crearProducto(producto));
     });
 
-    console.log("¡Bienvenido " + nuevoUsuario + "!");
-    alert("¡Bienvenido " + nuevoUsuario + "!");
-}
+    //Agregar producto desde el formulario
+    formProducto.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-// Ingreso de usuario registrado.
-let ingresar = true;
+        const nombre = document.getElementById("producto").value;
+        const cantidad = parseInt(document.getElementById("cantidad").value);
+        const categoria = document.getElementById("categoria").value;
 
-while (ingresar) {
-    let usuarioInput = prompt("Ingrese su nombre de usuario o mail:");
-
-    // Validar los datos con el Array.
-    let usuarioValido = usuarioRegistrado.find((u) => u.usuario === usuarioInput || u.mail === usuarioInput);
-
-    if (!usuarioValido) {
-        alert("Usuario no encontrado. Verifique que los datos sean correctos.");
-    } else {
-        let intentos = 3;
-        let contraseñaCorrecta = false;
-
-        for (let i = 0; i < intentos; i++) {
-            let contraseñaInput = prompt("Ingrese su contraseña nuevamente (Intento " + (i + 1) + " de " + intentos + "):");
-
-            if (usuarioValido.contraseña === contraseñaInput) {
-                accesoConcedido = true;
-                alert("¡Bienvenido " + usuarioValido.usuario + ".");
-                console.log("¡Bienvenido " + usuarioValido.usuario + ".");
-                ingresar = false;
-                break;
-            } else {
-                alert("Contraseña incorrecta. Intente nuevamente." + (i + 1) + " de " + intentos + " intentos.");
-                console.log("Contraseña incorrecta. Intente nuevamente." + (i + 1) + " de " + intentos + " intentos.");
-            }
+        if (!nombre || isNaN(cantidad) || cantidad <= 0) {
+            mostrarMensaje("Por favor, ingresa todos los campos correctamente.");
+            return;
         }
 
-        if (!accesoConcedido) {
-            alert("Has realizado 3 intentos de contraseña. Vuelve a intentarlo mas tarde.");
-            console.log("Has realizado 3 intentos de contraseña. Vuelve a intentarlo mas tarde.");
-            ingresar = false;
+        const nuevoProducto = { nombre, cantidad, categoria };
+        productos.push(nuevoProducto);
+
+        // Mostrar el producto en la lista
+        listaProductos.appendChild(crearProducto(nuevoProducto));
+
+        // Borar el formulario
+        formProducto.reset();
+    });
+
+    // Crear la lista en localStorage
+    botonCrearLista.addEventListener("click", () => {
+        const nombreLista = inputLista.value.trim();
+        if (!nombreLista) {
+            mostrarMensaje("Por favor, ingresa un nombre para la lista.");
+            return;
         }
-    }
 
-
-
-    // Opción para reintentar o salir.
-    if (ingresar) {
-        let reintentar = prompt("¿Desea reintentar el ingreso? (si/no):").toLowerCase();
-        if (reintentar !== "si") {
-            ingresar = false;
-            console.log("Vuelva a internarlo más tarde.");
-            alert("Vuelva a internarlo más tarde.");
+        if (productos.length === 0) {
+            mostrarMensaje("No hay productos en la lista para guardar.");
+            return;
         }
-    }
-}
 
+        const nuevaLista = { nombre: nombreLista, productos: productos };
+        listas.push(nuevaLista);
+        localStorage.setItem("listas", JSON.stringify(listas));
 
-// ----------------------------------------------------------------
+        // Mostrar la lista en "Mis listas"
+        const liLista = document.createElement("li");
+        liLista.textContent = nombreLista;
+        misListas.appendChild(liLista);
 
-// Uso de Función para saludar al usuario.
-function saludar(nombre) {
-    console.log("Hola " + nombre + ", Bienvenido a AlmacenApp!");
-    alert("Hola " + nombre + ", Bienvenido a AlmacenApp!");
-}
+        productos = [];
+        listaProductos.innerHTML = "";
+        inputLista.value = "";
 
-saludar(nuevoUsuario);
+        mostrarMensaje("Lista creada exitosamente.");
 
-// ----------------------------------------------------------------
+    });
 
-// Ingreso de productos con función, while y array.
-// Arrays para guardar los ingresos.
-let productos = [];
-let cantidades = [];
-let fechasCaducidad = [];
+    // Borrar la lista actual
+    botonBorrarTodo.addEventListener("click", () => {
+        if (confirm("¿Estás seguro de que deseas borrar toda la lista?")) {
+            productos = [];
+            listaProductos.innerHTML = "";
+            localStorage.removeItem("productos");
+        }
+    });
 
-function agregarProductoAlista(producto, cantidad, fechaCaducidad) {
-    if (producto && !isNaN(cantidad) && cantidad > 0 && fechaCaducidad) {
-        productos.push(producto);
-        cantidades.push(cantidad);
-        fechasCaducidad.push(fechaCaducidad);
-
-        console.log("Producto agregado: " + producto + ", Cantidad: " + cantidad + ", Vence el: " + fechaCaducidad);
-        alert("Producto agregado: " + producto + "\nCantidad: " + cantidad + "\nFecha de vencimiento: " + fechaCaducidad);
-    } else {
-        console.log("Producto inválido. Ingrese los campos correctamente.");
-        alert("Producto inválido. Ingrese los campos correctamente.");
-    }
-}
-
-// Bucle para agregar productos.
-
-let agregarProducto = true;
-
-while (agregarProducto) {
-    let producto = prompt("Ingrese el producto:");
-    let cantidad = Number(prompt("Ingrese la cantidad:"));
-    let fechaCaducidad = prompt("Ingrese la fecha de vencimiento (DD/MM/AAAA):");
-
-    agregarProductoAlista(producto, cantidad, fechaCaducidad);
-
-    // Pregunta para continuar o no.
-    let continuar = prompt("¿Desea agregar otro producto? (si/no):").toLowerCase();
-    if (continuar !== "si") {
-        agregarProducto = false;
-    }
-}
-
-console.log("Gracias, puede agregar un nuevo producto cuando lo desees.");
-alert("Gracias, puede agregar un nuevo producto cuando lo desees.");
-
-// ----------------------------------------------------------------
-
-
-// Suma de cantidad de items agregados con Función flecha.
-const sumarItems = (arr) => arr.reduce((total, num) => total + num, 0);
-
-let totalItems = sumarItems(cantidades);
-
-console.log("Total de items agregados: " + totalItems);
-alert("Total de items agregados: " + totalItems);
-
-// Mostar resumen de productos agregados.
-console.log("Productos ingresados:", productos);
-console.log("Cantidades:", cantidades);
-console.log("Fechas de vencimiento ingresadas:", fechasCaducidad);
-
-// Resumen: Lista de productos agregados.
-let resumen = "Lista de productos:\n\n";
-
-for (let i = 0; i < productos.length; i++) {
-    resumen += `Producto: ${productos[i]}\nCantidad: ${cantidades[i]}\nVence el: ${fechasCaducidad[i]}\n\n`;
-}
-
-console.log(resumen);
-alert(resumen);
-
-
-// ----------------------------------------------------------------
-
-
-
-
+});
