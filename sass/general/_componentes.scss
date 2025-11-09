@@ -1,0 +1,63 @@
+/* Variables--------------------------------------------------*/
+/* Colores */
+
+$beige: #F9F1DF;
+$verde: #5E7325;
+$naranja: #D95823;
+$amarillo: #F6AA00;
+$violeta: #B7AFCF;
+$negro: #000000;
+
+/* Reset-----------------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Tipografía------------------------------------------------*/
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: $negro;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sansita';
+    font-weight:800;
+    font-style: italic;
+    color: $verde;
+}
+
+/* Botones -------------------------------------------------- */
+button {
+    background-color: $naranja;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: darken($naranja, 10%);
+}
+
+button.secondary {
+    background-color: $amarillo;
+    color: $negro;
+}
+button.secondary:hover {
+    background-color: darken($amarillo, 10%);
+}
+
+button.thirdary {
+    background-color: $violeta;
+    color: white;
+}
+button.thirdary:hover {
+    background-color: darken($violeta, 10%);
+}

@@ -1,0 +1,59 @@
+@charset "UTF-8";
+/* Links a partials */
+/* Variables--------------------------------------------------*/
+/* Colores */
+/* Reset-----------------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tipografía------------------------------------------------*/
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  color: #000000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Sansita";
+  font-weight: 800;
+  font-style: italic;
+  color: #5E7325;
+}
+
+/* Botones -------------------------------------------------- */
+button {
+  background-color: #D95823;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(173.0833333333, 70.1904761905, 27.9166666667);
+}
+
+button.secondary {
+  background-color: #F6AA00;
+  color: #000000;
+}
+
+button.secondary:hover {
+  background-color: rgb(195, 134.756097561, 0);
+}
+
+button.thirdary {
+  background-color: #B7AFCF;
+  color: white;
+}
+
+button.thirdary:hover {
+  background-color: rgb(154.3125, 143.125, 187.875);
+}/*# sourceMappingURL=estilos.css.map */
