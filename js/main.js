@@ -20,32 +20,72 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para renderizar la lista de productos
     function crearProducto(producto) {
         const li = document.createElement("li");
-        li.innerHTML = `${producto.nombre} - Cantidad: - Categoría: ${producto.categoria}
-                        <button class="restar">-</button>
-                        <span class="cantidad" ${producto.cantidad} </span>
-                        <button class="sumar">+</button>
-                        <button class="borrar">Borrar</button>`;
 
-        // Botones para sumar, restar y borrar
-        li.querySelector(".sumar").addEventListener("click", () => {
-            producto.cantidad++;
-            li.querySelector(".cantidad").textContent = producto.cantidad;
-        });
+        const texto = document.createElement("span");
+        texto.textContent = `${producto.nombre} - Categoria: ${producto.categoria}`;
 
-        li.querySelector(".restar").addEventListener("click", () => {
+        // Selector de cantidad
+        const cantidad = document.createElement("span");
+        cantidad.className = "cantidad";
+
+        // Restar cantidad
+        const botonRestar = document.createElement("button");
+        botonRestar.type = "button";
+        botonRestar.className = "restar";
+        botonRestar.textContent = "-";
+
+        // Cantidad visible
+        const cantidadVisible = document.createElement("span");
+        cantidadVisible.className = "cantidad";
+        cantidadVisible.textContent = producto.cantidad;
+
+        // Sumar cantidad
+        const botonSumar = document.createElement("button");
+        botonSumar.type = "button";
+        botonSumar.className = "sumar";
+        botonSumar.textContent = "+";
+
+        // Botón borrar producto
+        const botonBorrar = document.createElement("button");
+        botonBorrar.type = "button";
+        botonBorrar.className = "borrar";
+        botonBorrar.textContent = "Borrar";
+
+        // Agregar elementos
+        cantidad.appendChild(document.createTextNode(" Cantidad: "));
+        cantidad.appendChild(botonRestar);
+        cantidad.appendChild(cantidadVisible);
+        cantidad.appendChild(botonSumar);
+
+        li.appendChild(texto);
+        li.appendChild(cantidad);
+        li.appendChild(document.createTextNode(" "));
+        li.appendChild(botonBorrar);
+
+        // Eventos para los botones
+        botonRestar.addEventListener("click", () => {
             if (producto.cantidad > 1) {
                 producto.cantidad--;
-                li.querySelector(".cantidad").textContent = producto.cantidad;
+                cantidadVisible.textContent = producto.cantidad;
+                guardarProductos();
             }
         });
 
-        li.querySelector(".borrar").addEventListener("click", () => {
+        botonSumar.addEventListener("click", () => {
+            producto.cantidad++;
+            cantidadVisible.textContent = producto.cantidad;
+            guardarProductos();
+        });
+
+        botonBorrar.addEventListener("click", () => {
             listaProductos.removeChild(li);
             productos = productos.filter(p => p !== producto);
+            if (typeof guardarProductos === "function") {
+                guardarProductos();
+            }
         });
 
         return li;
-
 
     }
 
@@ -78,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Mostrar el producto en la lista
         listaProductos.appendChild(crearProducto(nuevoProducto));
 
-        // Borar el formulario
+        // Borrar el formulario
         formProducto.reset();
     });
 
@@ -108,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
         listaProductos.innerHTML = "";
         inputLista.value = "";
 
-        mostrarMensaje("Lista creada exitosamente.");
 
     });
 
