@@ -1,0 +1,175 @@
+/* Links a partials */
+@use "../general/componentes" as *;
+
+.formulario-productos {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: $blanco;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid $verde;
+        border-radius: 15px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
+/* Contenedor de la lista de productos agregados */
+.productos-agregados {
+    background-color: $blanco;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            background-color: lighten($beige, 10%);
+            border: 1px solid $verde;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+
+            span:first-child {
+                flex: 1;
+                font-weight: 600;
+                color: $negro;
+            }
+
+            /* Botonera */
+            .cantidad {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                margin-left: 10px;
+                font-weight: normal;
+
+                button {
+                    background-color: $verde;
+                    color: $blanco;
+                    border: none;
+                    border-radius: 4px;
+                    width: 24px;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    font-size: 16px;
+                    line-height: 1;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: darken($verde, 10%);
+                    }
+                }
+
+                /* Cantidades */
+                span.cantidad {
+                    min-width: 20px;
+                    text-align: center;
+                }
+            }
+
+            /* Borrar producto */
+            .borrar {
+                background-color: $blanco;
+                color: $naranja;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 6px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    color: darken($naranja, 10%);
+                }
+            }
+        }
+    }
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+
+.contenedor-mis-listas {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: $blanco;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+
+
+    h4 {
+        color: $verde;
+        margin-bottom: 15px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+}

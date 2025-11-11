@@ -11,49 +11,265 @@
 
 /* Tipografía------------------------------------------------*/
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
   color: #000000;
+  background-color: #F9F1DF;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Sansita";
   font-weight: 800;
   font-style: italic;
-  color: #5E7325;
+  color: #536620;
 }
 
 /* Botones -------------------------------------------------- */
 button {
-  background-color: #D95823;
+  background-color: #536620;
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
   font-family: "Roboto", sans-serif;
-  font-weight: bold;
+  font-weight: normal;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: rgb(173.0833333333, 70.1904761905, 27.9166666667);
+  background-color: rgb(51.4104477612, 63.1791044776, 19.8208955224);
 }
 
 button.secondary {
-  background-color: #F6AA00;
-  color: #000000;
+  background-color: transparent;
+  border: solid 2px #536620;
+  color: #536620;
 }
 
 button.secondary:hover {
-  background-color: rgb(195, 134.756097561, 0);
+  background-color: transparent;
+  border-color: rgb(51.4104477612, 63.1791044776, 19.8208955224);
+  color: rgb(51.4104477612, 63.1791044776, 19.8208955224);
 }
 
 button.thirdary {
-  background-color: #B7AFCF;
-  color: white;
+  background-color: transparent;
+  color: #536620;
+  font-weight: normal;
 }
 
 button.thirdary:hover {
-  background-color: rgb(154.3125, 143.125, 187.875);
+  color: rgb(51.4104477612, 63.1791044776, 19.8208955224);
+}
+
+/* Footer --------------------------------------------------- */
+footer {
+  text-align: center;
+  padding: 40px;
+  background-color: #536620;
+  border-top: 1px solid #536620;
+  margin-top: 40px;
+  color: #FFFFFF;
+}
+
+/* Links a partials */
+/* Links a partials */
+/* Header --------------------------------------------------- */
+.header {
+  text-align: center;
+  padding: 10px;
+  background-color: #F9F1DF;
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #536620;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #536620;
+  border-radius: 15px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+/* Links a partials */
+/* Links a partials */
+.formulario-productos {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.lista label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.lista input,
+.lista select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #536620;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Contenedor de la lista de productos agregados */
+.productos-agregados {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 600px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.productos-agregados ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.productos-agregados ul li {
+  background-color: white;
+  border: 1px solid #536620;
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  /* Botonera */
+  /* Borrar producto */
+}
+.productos-agregados ul li span:first-child {
+  flex: 1;
+  font-weight: 600;
+  color: #000000;
+}
+.productos-agregados ul li .cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+  font-weight: normal;
+  /* Cantidades */
+}
+.productos-agregados ul li .cantidad button {
+  background-color: #536620;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: background-color 0.2s ease;
+}
+.productos-agregados ul li .cantidad button:hover {
+  background-color: rgb(51.4104477612, 63.1791044776, 19.8208955224);
+}
+.productos-agregados ul li .cantidad span.cantidad {
+  min-width: 20px;
+  text-align: center;
+}
+.productos-agregados ul li .borrar {
+  background-color: #FFFFFF;
+  color: #D95823;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.productos-agregados ul li .borrar:hover {
+  color: rgb(173.0833333333, 70.1904761905, 27.9166666667);
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contenedor-mis-listas {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+.contenedor-mis-listas h4 {
+  color: #536620;
+  margin-bottom: 15px;
+}
+.contenedor-mis-listas ul {
+  list-style: none;
+  padding: 0;
 }/*# sourceMappingURL=estilos.css.map */

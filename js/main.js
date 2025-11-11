@@ -1,5 +1,4 @@
 // Crear listado de productos
-// No esta contemplado las acciones de compartir listas ni el ingreso y edición a listas ya creadas.
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const misListas = document.getElementById("misListas");
 
     // Recuperar listas del localStorage 
-    let productos = JSON.parse(localStorage.getItem("productosTemporales")) || [];
+    let productos = JSON.parse(localStorage.getItem("productos")) || [];
     let listas = JSON.parse(localStorage.getItem("listas")) || [];
 
     // Función para renderizar la lista de productos
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const li = document.createElement("li");
 
         const texto = document.createElement("span");
-        texto.textContent = `${producto.nombre} - Categoria: ${producto.categoria}`;
+        texto.textContent = `${producto.nombre} - ${producto.categoria}`;
 
         // Selector de cantidad
         const cantidad = document.createElement("span");
@@ -83,6 +82,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (typeof guardarProductos === "function") {
                 guardarProductos();
             }
+
+            visibilidadAcciones ();
         });
 
         return li;
@@ -94,9 +95,21 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("productos", JSON.stringify(productos));
     }
 
+    //Guardar mis listas en el localStorage al cargar la página
+    function guardarListas() {
+        localStorage.setItem("listas", JSON.stringify(listas));
+    }
+
     //Cargar productos guardados al iniciar
     productos.forEach(producto => {
         listaProductos.appendChild(crearProducto(producto));
+    });
+
+    //Cargar mis listas al iniciar
+    listas.forEach(lista => {
+        const liLista = document.createElement("li");
+        liLista.textContent = lista.nombre;
+        misListas.appendChild(liLista);
     });
 
     //Agregar producto desde el formulario
@@ -117,6 +130,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Mostrar el producto en la lista
         listaProductos.appendChild(crearProducto(nuevoProducto));
+
+        // Guardar en localStorage
+        guardarProductos();
 
         // Borrar el formulario
         formProducto.reset();
@@ -147,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
         productos = [];
         listaProductos.innerHTML = "";
         inputLista.value = "";
+
+        guardarProductos();
 
 
     });

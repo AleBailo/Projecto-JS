@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Aquí redirigir a otra página
             setTimeout(() => {
-                window.location.href = "./pages/ingreso.html";
+                window.location.href = "./pages/listas.html";
             }, 2000);
         } else {
             mostrarMensaje("Usuario o contraseña incorrectos.", "error");

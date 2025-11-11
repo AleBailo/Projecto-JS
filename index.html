@@ -28,12 +28,14 @@
 <body>
 
     <!-- Header -->
-    <h1 id="titulo">AlacenaApp | Gestiona tus alimentos</h1>
-    <p id="descripcion">Una aplicación sencilla para gestionar los alimentos en tu casa.</p>
+    <section class="header">
+        <h1 id="titulo">AlacenaApp</h1>
+        <p id="descripcion">Gestiona tus listas de compras</p>
+    </section>
 
     <!-- Iniciar sesión -->
     <section>
-        <form id="formlogin">
+        <form id="formlogin" class="form">
             <div>
                 <label for="usuario">Usuario:</label>
                 <input type="text" id="usuario" name="usuario" placeholder="Ingresa tu usuario" required>
@@ -43,7 +45,7 @@
                 <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
             </div>
             <button type="submit">Ingresar</button>
-            <button type="button" id="botonRegistro">Registrase</button>
+            <button type="button" id="botonRegistro" class="thirdary">Registrarse</button>
         </form>
     </section>
 

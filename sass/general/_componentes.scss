@@ -2,11 +2,12 @@
 /* Colores */
 
 $beige: #F9F1DF;
-$verde: #5E7325;
+$verde: #536620;
 $naranja: #D95823;
 $amarillo: #F6AA00;
 $violeta: #B7AFCF;
 $negro: #000000;
+$blanco: #FFFFFF;
 
 /* Reset-----------------------------------------------------*/
 * {
@@ -18,9 +19,10 @@ $negro: #000000;
 /* Tipografía------------------------------------------------*/
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: $negro;
+    background-color: $beige;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -32,32 +34,49 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Botones -------------------------------------------------- */
 button {
-    background-color: $naranja;
+    background-color: $verde;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
-    font-weight: bold;
+    font-weight: normal;
     transition: background-color 0.3s ease;
 }
 button:hover {
-    background-color: darken($naranja, 10%);
+    background-color: darken($verde, 10%);
 }
 
 button.secondary {
-    background-color: $amarillo;
-    color: $negro;
+    background-color: transparent;
+    border: solid 2px $verde;
+    color: $verde;
 }
 button.secondary:hover {
-    background-color: darken($amarillo, 10%);
+    background-color: transparent;
+    border-color: darken($verde, 10%);
+    color: darken($verde, 10%);
 }
 
 button.thirdary {
-    background-color: $violeta;
-    color: white;
+    background-color: transparent;
+    color: $verde;
+    font-weight: normal;
 }
 button.thirdary:hover {
-    background-color: darken($violeta, 10%);
+    color: darken($verde, 10%);
+}
+
+
+
+/* Footer --------------------------------------------------- */
+
+footer {
+    text-align: center;
+    padding: 40px;
+    background-color: $verde;
+    border-top: 1px solid $verde;
+    margin-top: 40px;
+    color: $blanco;
 }

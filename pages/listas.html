@@ -27,17 +27,18 @@
 
 <body>
     <!-- Header -->
-    <h1 id="titulo">AlacenaApp</h1>
-    <h3>Gestiona tus alimentos</h3>
+    <section class="header">
+        <h1 id="titulo">AlacenaApp</h1>
+    </section>
 
     <!-- Formulario de productos -->
 
-    <section>
-        <div>
+    <section class="formulario-productos">
+        <div class="lista">
             <label for="lista">Lista:</label>
             <input type="text" id="lista" name="lista" placeholder="Ingresa el nombre de la lista" required>
         </div>
-        <form id="formProductos">
+        <form id="formProductos" class="lista" class="form.lista">
             <p id="descripcion">Ingresá los alimentos que quieres agregar a tu lista.</p>
             <div>
                 <label for="producto">Producto:</label>
@@ -59,28 +60,33 @@
                     <option value="bebidas">Bebidas</option>
                     <option value="limpieza">Limpieza</option>
                     <option value="cuidadopersonal">Cuidado personal</option>
+                    <option value="otro">Otro</option>
                 </select>
             </div>
-            <button type="submit">Agregar producto</button>
+            <section>
+                <button type="submit" class="secondary">Agregar producto</button>
+            </section>
         </form>
     </section>
 
     <!-- Lista de productos -->
     <!-- Los productos se agregarán a medida que se vayan cargando. Al lado un edit y un borra -->
-    <section>
+    <section class="productos-agregados">
         <ul id="listaProductos"></ul>
+        <!-- Acciones -->
+        <section class="acciones">
+            <div>
+                <button id="botonCrearLista">Crear lista</button>
+                <button id="botonBorrarTodo" class="secondary">Borrar todo</button>
+                <button id="botonCompartir" class="thirdary">Compartir</button>
+            </div>
+        </section>
     </section>
 
-    <!-- Acciones -->
-    <section>
-        <h5>Acciones</h5>
-        <button id="botonCrearLista">Crear lista</button>
-        <button id="botonBorrarTodo">Borrar todo</button>
-        <button id="botonCompartir">Compartir</button>
-    </section>
+
 
     <!-- Mis listas -->
-    <section>
+    <section class="contenedor-mis-listas">
         <h4>Mis listas</h4>
         <ul id="misListas"></ul>
         <!-- Las listas se agregan en este espacio -->
