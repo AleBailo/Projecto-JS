@@ -17,6 +17,9 @@
         href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/estilos.css">
 
@@ -28,13 +31,13 @@
 <body>
 
     <!-- Header -->
-     <section class="header">
-    <h1 id="titulo">AlacenaApp</h1>
-    <p id="descripcion">Una aplicación sencilla para gestionar tus listas de compras.</p>
+    <section class="header">
+        <h1 id="titulo">AlacenaApp</h1>
+        <p id="descripcion">Una aplicación sencilla para gestionar tus listas de compras.</p>
     </section>
 
     <!-- Registro de usuario -->
-    <section">
+    <section>
         <form id="formRegistro" class="form">
             <div>
                 <label for="email">Mail:</label>
@@ -49,24 +52,30 @@
                 <input type="password" id="password" name="password" placeholder="Ingresa una contraseña" required>
             </div>
             <div>
-                <label for="confirm-password">Contraseña:</label>
-                <input type="password" id="confirm-password" name="confirm-password"
+                <label for="confirmPassword">Confirmar contraseña:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword"
                     placeholder="Confirma la contraseña" required>
             </div>
             <button type="submit">Registrarse</button>
             <button type="button" id="botonVolver" class="thirdary">Volver</button>
         </form>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>AlmacenApp &copy; 2025 - Todos los derechos reservados</p>
-    </footer>
+        <!-- Footer -->
+        <footer>
+            <p>AlmacenApp &copy; 2025 - Todos los derechos reservados</p>
+        </footer>
 
-    <!-- Scripts de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
+        <!-- Scripts de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+
+        <!-- Scripts Toastify -->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <!-- Scripts SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

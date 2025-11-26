@@ -1,42 +1,48 @@
-//Login
-document.addEventListener("DOMContentLoaded", () => {
-    const formLogin = document.getElementById("formlogin");
-    const botonRegistro = document.getElementById("botonRegistro");
-    const mensajeDiv = document.createElement("div");
-    document.body.appendChild(mensajeDiv);
+// Login
+// Botones del DOM
+const formLogin = document.getElementById('formLogin');
+const botonRegistro = document.getElementById('botonRegistro');
 
-    // Cargar usuarios del localStorage
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+// Usuarios en el localStorage
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
-    formLogin.addEventListener("submit", (e) => {
-        e.preventDefault();
+// Inicio de sesión
+formLogin.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        const usuario = document.getElementById("usuario").value;
-        const password = document.getElementById("password").value;
+    const usuarioIngresado = document.getElementById('usuario').value;
+    const passwordIngresada = document.getElementById('password').value;
 
-        // Validar información
-        const usuarioValido = usuarios.find(user => user.usuario === usuario && user.password === password);
-        if (usuarioValido) {
-            mostrarMensaje("Inicio de sesión exitoso.", "success");
-            formLogin.reset();
+    // Validaciones
+    const usuarioValido = usuarios.find (user => user.usuario === usuarioIngresado && user.password === passwordIngresada);
+    if (usuarioValido) {
+         Toastify({
+            text: "Bienvenido " + usuarioIngresado,
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#536620",
+        }).showToast();
 
-            // Aquí redirigir a otra página
-            setTimeout(() => {
-                window.location.href = "./pages/listas.html";
-            }, 2000);
-        } else {
-            mostrarMensaje("Usuario o contraseña incorrectos.", "error");
-        }
-    });
+        formLogin.reset();
 
-    // Botón para ir a la página de registro
-    botonRegistro.addEventListener("click", () => {
-        window.location.href = "./pages/registro.html";
-    });
-
-    // Mostrar mensajes al usuario
-    function mostrarMensaje(mensaje, tipo) {
-        mensajeDiv.textContent = mensaje;
-        mensajeDiv.className = tipo === "error" ? "mensaje-error" : "mensaje-exito";
+        // Redirigir a listas
+        setTimeout(() => {
+            window.location.href = './pages/listas.html';
+        }, 1500);
     }
-}); 
+    else {
+        Toastify({
+            text: "Usuario o contraseña incorrectos",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#FF0000",
+        }).showToast();
+    }
+});
+
+// Ir al registro
+botonRegistro.addEventListener('click', () => {
+    window.location.href = './pages/registro.html';
+});

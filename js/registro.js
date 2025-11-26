@@ -1,65 +1,92 @@
+//Registro
+// Botones del DOM
+const formRegistro = document.getElementById('formRegistro');
+const botonVolver = document.getElementById('botonVolver');
+
+// Usuarios en el localStorage
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
 // Registro de usuario
-document.addEventListener("DOMContentLoaded", () => {
-    const formRegistro = document.getElementById("formRegistro");
-    const botonVolver = document.getElementById("botonVolver");
+formRegistro.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-    // Si hay usuarios ya guardados en el localStorage, los cargamos
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const email = document.getElementById('email').value;
+    const usuario = document.getElementById('usuario').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
-    formRegistro.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const email = document.getElementById("email").value;
-        const usuario = document.getElementById("usuario").value;
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
-
-        // Validar que las contraseñas coincidan
-        if (!email || !usuario || !password || !confirmPassword) {
-            mostrarMensaje("Por favor, completa todos los campos.", "error");
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            mostrarMensaje("Las contraseñas no coinciden.", "error");
-            return;
-        }
-
-        // Validar si el usuario ya existe
-        const usuarioExistente = usuarios.find(user => user.usuario === usuario || user.email === email);
-        if (usuarioExistente) {
-            mostrarMensaje("El usuario o email ya existe.", "error");
-            return;
-        }
-
-        // Guardar nuevo usuario
-        const nuevoUsuario = { email, usuario, password };
-        usuarios.push(nuevoUsuario);
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-        mostrarMensaje("Registro exitoso. Ya podes iniciar sesión.", "success");
-        formRegistro.reset();
-
-        // Redirigir a la página de inicio de sesión después del registro
-        setTimeout(() => {
-            window.location.href = "../index.html";
-        }, 8000);
-    });
-
-    // Botón volver a la página de login
-    botonVolver.addEventListener("click", () => {
-        window.location.href = "../index.html";
-    });
-
-    // Mostrar mensajes al usuario
-    function mostrarMensaje(mensaje, tipo) {
-        const mensajeDiv = document.createElement("div");
-        mensajeDiv.textContent = mensaje;
-        mensajeDiv.className = tipo === "error" ? "mensaje-error" : "mensaje-exito";
-        document.body.appendChild(mensajeDiv);
+    // Validaciones
+    // Si hay campos vacíos
+    if (!email || !usuario || !password || !confirmPassword) {
+        Toastify({
+            text: "Por favor, completa todos los campos.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#FF0000",
+        }).showToast();
+        return;
     }
+
+    // Si las contraseñas no coinciden
+    if (password !== confirmPassword) {
+        Toastify({
+            text: "Las contraseñas no coinciden.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#FF0000",
+        }).showToast();
+        return;
+    }
+
+    // Si el usuario ya existe
+    const usuarioExiste = usuarios.find(user => user.usuario === usuario || user.email === email);
+    if (usuarioExiste) {
+        Toastify({
+            text: "El usuario o email ya están registrados.",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#FF0000",
+        }).showToast();
+        return;
+    }
+
+    // Nuevo usuario
+    const nuevoUsuario = {
+        email,
+        usuario,
+        password
+    };
+
+    // Guardarlo en el localStorage
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+    // Notificación de Toastify
+    Toastify({
+        text: "Registro exitoso",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#536620",
+    }).showToast();
+
+    formRegistro.reset();
+
+    // Redirigir a inicio de sesión
+    setTimeout(() => {
+        window.location.href = '../index.html';
+    }, 1500);
+
 });
 
+// Volver a la página anterior
+botonVolver.addEventListener('click', () => {
+    window.location.href = '../index.html';
+
+});
 
 
 
