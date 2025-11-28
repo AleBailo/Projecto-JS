@@ -1,4 +1,14 @@
 // Login
+
+// Cargar usuarios creados desde json con fetch
+let usuariosJASON = [];
+fetch("./data/data.json")
+    .then(response => response.json())
+    .then(data => {
+        usuariosJASON = data.usuarios;
+    })
+    .catch(err => console.log("Error al cargar el archivo JSON: ", err));
+
 // Botones del DOM
 const formLogin = document.getElementById('formLogin');
 const botonRegistro = document.getElementById('botonRegistro');
@@ -12,11 +22,12 @@ formLogin.addEventListener('submit', (e) => {
 
     const usuarioIngresado = document.getElementById('usuario').value;
     const passwordIngresada = document.getElementById('password').value;
+    const usuariosTodos = [...usuarios, ...usuariosJASON];
 
     // Validaciones
-    const usuarioValido = usuarios.find (user => user.usuario === usuarioIngresado && user.password === passwordIngresada);
+    const usuarioValido = usuariosTodos.find(user => user.usuario === usuarioIngresado && user.password === passwordIngresada);
     if (usuarioValido) {
-         Toastify({
+        Toastify({
             text: "Bienvenido " + usuarioIngresado,
             duration: 3000,
             gravity: "top",

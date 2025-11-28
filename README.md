@@ -2,7 +2,6 @@
 
 Aplicación creada para el curso de JavaScript de CoderHouse. El objetivo es armar listas colaborativas para realizar compras de supermecado y otros insumos. 
 
-En esta etapa: No está contemplado las acciones de compartir listas ni el ingreso y edición a listas ya creadas.
 
 Flow:
 1 Login --> si no registro.
