@@ -1,5 +1,4 @@
 // Login
-
 // Cargar usuarios creados desde json con fetch
 let usuariosJASON = [];
 fetch("./data/data.json")
@@ -10,18 +9,18 @@ fetch("./data/data.json")
     .catch(err => console.log("Error al cargar el archivo JSON: ", err));
 
 // Botones del DOM
-const formLogin = document.getElementById('formLogin');
-const botonRegistro = document.getElementById('botonRegistro');
+const formLogin = document.getElementById("formLogin");
+const botonRegistro = document.getElementById("botonRegistro");
 
 // Usuarios en el localStorage
-let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 // Inicio de sesión
-formLogin.addEventListener('submit', (e) => {
+formLogin.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const usuarioIngresado = document.getElementById('usuario').value;
-    const passwordIngresada = document.getElementById('password').value;
+    const usuarioIngresado = document.getElementById("usuario").value;
+    const passwordIngresada = document.getElementById("password").value;
     const usuariosTodos = [...usuarios, ...usuariosJASON];
 
     // Validaciones
@@ -39,7 +38,7 @@ formLogin.addEventListener('submit', (e) => {
 
         // Redirigir a listas
         setTimeout(() => {
-            window.location.href = './pages/listas.html';
+            window.location.href = "./pages/listas.html";
         }, 1500);
     }
     else {
@@ -54,6 +53,6 @@ formLogin.addEventListener('submit', (e) => {
 });
 
 // Ir al registro
-botonRegistro.addEventListener('click', () => {
-    window.location.href = './pages/registro.html';
+botonRegistro.addEventListener("click", () => {
+    window.location.href = "./pages/registro.html";
 });

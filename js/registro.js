@@ -1,19 +1,19 @@
 //Registro
 // Botones del DOM
-const formRegistro = document.getElementById('formRegistro');
-const botonVolver = document.getElementById('botonVolver');
+const formRegistro = document.getElementById("formRegistro");
+const botonVolver = document.getElementById("botonVolver");
 
 // Usuarios en el localStorage
-let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
 // Registro de usuario
-formRegistro.addEventListener('submit', (e) => {
+formRegistro.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const usuario = document.getElementById('usuario').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
+    const email = document.getElementById("email").value;
+    const usuario = document.getElementById("usuario").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
     // Validaciones
     // Si hay campos vacíos
@@ -62,7 +62,7 @@ formRegistro.addEventListener('submit', (e) => {
 
     // Guardarlo en el localStorage
     usuarios.push(nuevoUsuario);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     // Notificación de Toastify
     Toastify({
@@ -77,14 +77,14 @@ formRegistro.addEventListener('submit', (e) => {
 
     // Redirigir a inicio de sesión
     setTimeout(() => {
-        window.location.href = '../index.html';
+        window.location.href = "../index.html";
     }, 1500);
 
 });
 
 // Volver a la página anterior
-botonVolver.addEventListener('click', () => {
-    window.location.href = '../index.html';
+botonVolver.addEventListener("click", () => {
+    window.location.href = "../index.html";
 
 });
 
