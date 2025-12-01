@@ -1,12 +1,18 @@
 // Login
 // Cargar usuarios creados desde json con fetch
 let usuariosJASON = [];
-fetch("./data/data.json")
-    .then(response => response.json())
-    .then(data => {
-        usuariosJASON = data.usuarios;
-    })
-    .catch(err => console.log("Error al cargar el archivo JSON: ", err));
+async function cargarUsuarios() {
+    try {
+        const res = await fetch("./data/data.json");
+        const data = await res.json();
+        usuariosJASON = data.usuarios || [];
+        formLogin.querySelector('button[type="submit"]').disabled = false;
+    } catch (err) {
+        console.error(err);
+    }
+}
+formLogin.querySelector('button[type="submit"]').disabled = true;
+cargarUsuarios();
 
 // Botones del DOM
 const formLogin = document.getElementById("formLogin");
@@ -31,7 +37,9 @@ formLogin.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#536620",
+            style: {
+                background: "#536620"
+            }
         }).showToast();
 
         formLogin.reset();
@@ -47,7 +55,9 @@ formLogin.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
     }
 });

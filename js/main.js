@@ -1,10 +1,10 @@
 // Crear listado de productos
 // Elementos del DOM
-const formProducto = document.getElementById('formProducto');
+const formProductos = document.getElementById('formProductos');
 const listaProductos = document.getElementById('listaProductos');
 const botonCrearLista = document.getElementById('botonCrearLista');
 const botonBorrarTodo = document.getElementById('botonBorrarTodo');
-const inputLista = document.getElementById('inputLista');
+const InputLista = document.getElementById('lista');
 const misListas = document.getElementById('misListas');
 
 // Datos del localStorage
@@ -62,7 +62,7 @@ function renderProductos() {
 }
 
 // Agregar producto
-formProducto.addEventListener("submit", (e) => {
+formProductos.addEventListener("submit", (e) => {
     e.preventDefault();
     const nombre = document.getElementById("producto").value.trim();
     const cantidad = parseInt(document.getElementById("cantidad").value);
@@ -70,11 +70,13 @@ formProducto.addEventListener("submit", (e) => {
 
     if (!nombre || isNaN(cantidad) || cantidad <= 0) {
         Toastify({
-            text: "Por favor, completa todos los camopos",
+            text: "Por favor, completa todos los campos",
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -89,7 +91,9 @@ formProducto.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#536620",
+            style: {
+                background: "#536620"
+            }
         }).showToast();
 
     } else {
@@ -100,13 +104,15 @@ formProducto.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#536620",
+            style: {
+                background: "#536620"
+            }
         }).showToast();
     }
 
     guardarProductos();
     renderProductos();
-    formProducto.reset();
+    formProductos.reset();
 });
 
 // Eventos de botones en lista de productos
@@ -150,7 +156,9 @@ listaProductos.addEventListener("click", (e) => {
                     duration: 3000,
                     gravity: "top",
                     position: "right",
-                    backgroundColor: "#536620",
+                    style: {
+                        background: "#536620"
+                    }
                 }).showToast();
             }
         });
@@ -159,6 +167,7 @@ listaProductos.addEventListener("click", (e) => {
 
     // Botón editar
     if (target.classList.contains("boton-editar") && index !== null) {
+        const p = productos[index];
 
         Swal.fire({
             title: "Editar Producto",
@@ -167,8 +176,8 @@ listaProductos.addEventListener("click", (e) => {
                 <input id="swal-cantidad" type="number" class="swal2-input" placeholder="Cantidad" value="${p.cantidad}">
                 <select id="swal-categoria" class="swal2-select">
                     ${categorias.map(c =>
-                        `<option value="${c.toLowerCase()}" ${c.toLowerCase() === p.categoria ? "selected" : ""}>${c}</option>`
-                    ).join("")}
+                `<option value="${c.toLowerCase()}" ${c.toLowerCase() === p.categoria ? "selected" : ""}>${c}</option>`
+            ).join("")}
                 </select>
             `,
             showCancelButton: true,
@@ -178,14 +187,14 @@ listaProductos.addEventListener("click", (e) => {
                 const nombre = document.getElementById("swal-nombre").value.trim();
                 const cantidad = parseInt(document.getElementById("swal-cantidad").value);
                 const categoria = document.getElementById("swal-categoria").value;
-                
+
                 if (!nombre || isNaN(cantidad) || cantidad <= 0) {
                     Swal.showValidationMessage("Por favor, completa todos los campos correctamente.");
                     return false;
                 }
                 return { nombre, cantidad, categoria };
             }
-            }).then(result => {
+        }).then(result => {
             if (result.isConfirmed && result.value) {
                 const { nombre, cantidad, categoria } = result.value;
 
@@ -205,7 +214,9 @@ listaProductos.addEventListener("click", (e) => {
                     duration: 3000,
                     gravity: "top",
                     position: "right",
-                    backgroundColor: "#536620",
+                    style: {
+                        background: "#536620"
+                    }
                 }).showToast();
 
                 guardarProductos();
@@ -218,14 +229,16 @@ listaProductos.addEventListener("click", (e) => {
 
 // Crear lista
 botonCrearLista.addEventListener("click", () => {
-    const nombreLista = inputLista.value.trim();
+    const nombreLista = InputLista.value.trim();
     if (!nombreLista) {
         Toastify({
             text: "Por favor, ingresa un nombre para la lista",
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -236,7 +249,9 @@ botonCrearLista.addEventListener("click", () => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -252,17 +267,19 @@ botonCrearLista.addEventListener("click", () => {
     productos = [];
     guardarProductos();
     renderProductos();
-    inputLista.value = "";
+    InputLista.value = "";
 
     Toastify({
         text: "Lista creada con éxito",
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "#536620",
+        style: {
+            background: "#536620"
+        }
     }).showToast();
 
-    renderListas();
+    renderMisListas();
 });
 
 // Borrar lista
@@ -284,7 +301,9 @@ botonBorrarTodo.addEventListener("click", () => {
                 duration: 3000,
                 gravity: "top",
                 position: "right",
-                backgroundColor: "#536620",
+                style: {
+                    background: "#536620"
+                }
             }).showToast();
         }
     });
@@ -292,11 +311,11 @@ botonBorrarTodo.addEventListener("click", () => {
 
 // Renderizar listas guardadas
 function renderMisListas() {
-    misListas.innerHTML = "";                               
-    listas.forEach((lista, index) => {
+    misListas.innerHTML = "";
+    listas.forEach((unaLista, index) => {
         const li = document.createElement("li");
-        li.classList.add("lista-item"); 
-        li.innerHTML = `<strong>${lista.nombre}</strong> - ${lista.productos.length} productos
+        li.classList.add("lista-item");
+        li.innerHTML = `<strong>${unaLista.nombre}</strong> - ${unaLista.productos.length} productos
         <button type="button" class="boton-ver" data-index="${index}">Ver lista</button>
         <button type="button" class="boton-borrar-lista" data-index="${index}">Borrar</button>
         `;
@@ -309,22 +328,24 @@ renderMisListas();
 // Abrir lista
 misListas.addEventListener("click", (e) => {
     const target = e.target;
-    
+
     // Ver lista
     if (target.classList.contains("boton-ver")) {
         const index = parseInt(target.dataset.index, 10);
-        const lista = listas[index];
+        const listaSeleccionada = listas[index];
 
-        productos = JSON.parse(JSON.stringify(lista.productos));
+        productos = JSON.parse(JSON.stringify(listaSeleccionada.productos));
         guardarProductos();
         renderProductos();
 
         Toastify({
-            text: `Lista "${lista.nombre}" cargada`,
+            text: `Lista "${listaSeleccionada.nombre}" cargada`,
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#536620",
+            style: {
+                background: "#536620"
+            }
         }).showToast();
         return;
     }
@@ -348,7 +369,9 @@ misListas.addEventListener("click", (e) => {
                     duration: 3000,
                     gravity: "top",
                     position: "right",
-                    backgroundColor: "#536620",
+                    style: {
+                        background: "#536620"
+                    }
                 }).showToast();
             }
         });

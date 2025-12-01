@@ -23,7 +23,9 @@ formRegistro.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -35,7 +37,9 @@ formRegistro.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -48,7 +52,9 @@ formRegistro.addEventListener("submit", (e) => {
             duration: 3000,
             gravity: "top",
             position: "right",
-            backgroundColor: "#FF0000",
+            style: {
+                background: "#FF0000"
+            }
         }).showToast();
         return;
     }
@@ -70,7 +76,9 @@ formRegistro.addEventListener("submit", (e) => {
         duration: 3000,
         gravity: "top",
         position: "right",
-        backgroundColor: "#536620",
+        style: {
+            background: "#536620"
+        }
     }).showToast();
 
     formRegistro.reset();
