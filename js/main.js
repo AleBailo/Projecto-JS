@@ -46,7 +46,7 @@ function renderProductos() {
         const acciones = document.createElement("div");
         acciones.classList.add("acciones");
         acciones.innerHTML = `
-        <button type="button" class="boton-editar" data-index="${index}">Editar</button>
+        <button type="button" class="boton-editar secondary" data-index="${index}">Editar</button>
         <button type="button" class="boton-borrar" data-index="${index}">Borrar</button>
         `;
 
@@ -143,8 +143,16 @@ listaProductos.addEventListener("click", (e) => {
         Swal.fire({
             title: "¿Estás seguro de borrar este producto?",
             showCancelButton: true,
-            confirmButtonText: "Borrar Producto",
             cancelButtonText: "Cancelar",
+            confirmButtonText: "Borrar Producto",
+
+            customClass: {
+                popup: 'swal-popup',
+                title: 'swal-title',
+                confirmButton: 'swal-confirm',
+                cancelButton: 'swal-cancel'
+            }
+
         }).then((result) => {
             if (result.isConfirmed) {
                 productos.splice(index, 1);
@@ -181,8 +189,15 @@ listaProductos.addEventListener("click", (e) => {
                 </select>
             `,
             showCancelButton: true,
-            confirmButtonText: "Guardar",
             cancelButtonText: "Cancelar",
+            confirmButtonText: "Guardar",
+
+            customClass: {
+                popup: 'swal-popup',
+                title: 'swal-title',
+                confirmButton: 'swal-confirm',
+                cancelButton: 'swal-cancel'
+            },
             preConfirm: () => {
                 const nombre = document.getElementById("swal-nombre").value.trim();
                 const cantidad = parseInt(document.getElementById("swal-cantidad").value);
@@ -193,6 +208,8 @@ listaProductos.addEventListener("click", (e) => {
                     return false;
                 }
                 return { nombre, cantidad, categoria };
+
+
             }
         }).then(result => {
             if (result.isConfirmed && result.value) {
@@ -288,8 +305,16 @@ botonBorrarTodo.addEventListener("click", () => {
         title: "¿Deseas borrar toda la lista de productos?",
         text: "Esta acción borrará los productos agregados hasta el momento.",
         showCancelButton: true,
-        confirmButtonText: "Borrar Todo",
         cancelButtonText: "Cancelar",
+        confirmButtonText: "Borrar Todo",
+
+        customClass: {
+            popup: 'swal-popup',
+            title: 'swal-title',
+            confirmButton: 'swal-confirm',
+            cancelButton: 'swal-cancel'
+        }
+
     }).then((result) => {
         if (result.isConfirmed) {
             productos = [];
@@ -317,7 +342,7 @@ function renderMisListas() {
         li.classList.add("lista-item");
         li.innerHTML = `<strong>${unaLista.nombre}</strong> - ${unaLista.productos.length} productos
         <button type="button" class="boton-ver" data-index="${index}">Ver lista</button>
-        <button type="button" class="boton-borrar-lista" data-index="${index}">Borrar</button>
+        <button type="button" class="boton-borrar-lista secondary" data-index="${index}">Borrar</button>
         `;
         misListas.appendChild(li);
     });
@@ -334,19 +359,9 @@ misListas.addEventListener("click", (e) => {
         const index = parseInt(target.dataset.index, 10);
         const listaSeleccionada = listas[index];
 
-        productos = JSON.parse(JSON.stringify(listaSeleccionada.productos));
-        guardarProductos();
-        renderProductos();
+        localStorage.setItem("listaSeleccionada", JSON.stringify(listaSeleccionada));
+        window.location.href = "./mislistas.html";
 
-        Toastify({
-            text: `Lista "${listaSeleccionada.nombre}" cargada`,
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#536620"
-            }
-        }).showToast();
         return;
     }
 
@@ -356,8 +371,16 @@ misListas.addEventListener("click", (e) => {
         Swal.fire({
             title: `¿Deseas borrar toda la lista"?`,
             showCancelButton: true,
-            confirmButtonText: "Borrar Lista",
             cancelButtonText: "Cancelar",
+            confirmButtonText: "Borrar Lista",
+
+            customClass: {
+                popup: 'swal-popup',
+                title: 'swal-title',
+                confirmButton: 'swal-confirm',
+                cancelButton: 'swal-cancel'
+            }
+
         }).then((result) => {
             if (result.isConfirmed) {
                 listas.splice(index, 1);
@@ -378,3 +401,5 @@ misListas.addEventListener("click", (e) => {
         return;
     }
 });
+
+

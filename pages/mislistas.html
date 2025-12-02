@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AlacenaApp | Gestiona tus listas de compras">
+
+    <!-- Boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sansita:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/estilos.css">
+
+    <!-- JS -->
+    <script defer src="../js/main.js"></script>
+    <title>Proyecto Javascript | AlacenaApp</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <section class="header">
+        <h1 id="titulo">AlacenaApp</h1>
+    </section>
+
+    <!-- Lista de productos guardados -->
+    <section class="mis-listas">
+        <h4 id="listaSeleccionada"></h4>
+        <div id="productosMisListas" class="lista-productos"></div>
+    </section>
+
+    <div class="acciones-mis-listas">
+        <a href="./listas.html">
+            <button id="boton-volver" class="thirdary">Volver</button>
+        </a>
+        <button id="botonBorrarListaSeleccionada" class="secondary">Borrar lista</button>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>AlmacenApp &copy; 2025 - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <!-- Scripts Toastify -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- Scripts SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</body>
+
+</html>

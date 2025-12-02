@@ -80,3 +80,50 @@ footer {
     margin-top: 40px;
     color: $blanco;
 }
+
+/* SweetAlert2 estilos ---------------------------------- */
+
+.swal-popup {
+    background-color: $blanco !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.swal-title {
+    color: $verde !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 800 !important;
+}
+
+.swal-confirm {
+    background-color: $verde !important;
+    color: $blanco !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: normal !important;
+    transition: background-color 0.3s ease !important;
+}
+.swal-confirm:hover {
+    background-color: darken($verde, 10%) !important;
+}   
+
+.swal-cancel {
+    background-color: transparent !important;
+    border: solid 2px $verde !important;
+    color: $verde !important;
+    padding: 10px 20px !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: normal !important;
+    transition: background-color 0.3s ease !important;
+}
+.swal-cancel:hover {
+    background-color: transparent !important;
+    border-color: darken($verde, 10%) !important;
+    color: darken($verde, 10%) !important;
+}   
