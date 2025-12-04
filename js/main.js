@@ -62,89 +62,260 @@ function renderProductos() {
 }
 
 // Agregar producto
-formProductos.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nombre = document.getElementById("producto").value.trim();
-    const cantidad = parseInt(document.getElementById("cantidad").value);
-    const categoria = document.getElementById("categoria").value;
+if (formProductos) {
+    formProductos.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById("producto").value.trim();
+        const cantidad = parseInt(document.getElementById("cantidad").value);
+        const categoria = document.getElementById("categoria").value;
 
-    if (!nombre || isNaN(cantidad) || cantidad <= 0) {
-        Toastify({
-            text: "Por favor, completa todos los campos",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#FF0000"
-            }
-        }).showToast();
-        return;
-    }
+        if (!nombre || isNaN(cantidad) || cantidad <= 0) {
+            Toastify({
+                text: "Por favor, completa todos los campos",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#FF0000"
+                }
+            }).showToast();
+            return;
+        }
 
-    // Producto existente, sumar cantidades
-    const productoExistente = productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
-    if (productoExistente) {
-        productoExistente.cantidad += cantidad;
+        // Producto existente, sumar cantidades
+        const productoExistente = productos.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+        if (productoExistente) {
+            productoExistente.cantidad += cantidad;
 
-        Toastify({
-            text: "Cantidad actualizada con éxito",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#536620"
-            }
-        }).showToast();
+            Toastify({
+                text: "Cantidad actualizada con éxito",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#536620"
+                }
+            }).showToast();
 
-    } else {
-        productos.push({ nombre, cantidad, categoria });
+        } else {
+            productos.push({ nombre, cantidad, categoria });
 
-        Toastify({
-            text: "Producto agregado con éxito",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#536620"
-            }
-        }).showToast();
-    }
+            Toastify({
+                text: "Producto agregado con éxito",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#536620"
+                }
+            }).showToast();
+        }
 
-    guardarProductos();
-    renderProductos();
-    formProductos.reset();
-});
-
-// Eventos de botones en lista de productos
-listaProductos.addEventListener("click", (e) => {
-    const target = e.target;
-    const index = target.dataset.index !== undefined ? parseInt(target.dataset.index, 10) : null;
-
-    // Botón sumar
-    if (target.classList.contains("boton-sumar") && index !== null) {
-        productos[index].cantidad++;
         guardarProductos();
         renderProductos();
-        return;
-    }
+        formProductos.reset();
+    });
+}
 
-    // Botón restar
-    if (target.classList.contains("boton-restar") && index !== null) {
-        if (productos[index].cantidad > 1) {
-            productos[index].cantidad--;
+// Eventos de botones en lista de productos
+if (listaProductos) {
+    listaProductos.addEventListener("click", (e) => {
+        const target = e.target;
+        const index = target.dataset.index !== undefined ? parseInt(target.dataset.index, 10) : null;
+
+        // Botón sumar
+        if (target.classList.contains("boton-sumar") && index !== null) {
+            productos[index].cantidad++;
             guardarProductos();
             renderProductos();
             return;
         }
-    }
 
-    // Botón borrar
-    if (target.classList.contains("boton-borrar") && index !== null) {
+        // Botón restar
+        if (target.classList.contains("boton-restar") && index !== null) {
+            if (productos[index].cantidad > 1) {
+                productos[index].cantidad--;
+                guardarProductos();
+                renderProductos();
+                return;
+            }
+        }
+
+        // Botón borrar
+        if (target.classList.contains("boton-borrar") && index !== null) {
+            Swal.fire({
+                title: "¿Estás seguro de borrar este producto?",
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Borrar Producto",
+
+                customClass: {
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    confirmButton: 'swal-confirm',
+                    cancelButton: 'swal-cancel'
+                }
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    productos.splice(index, 1);
+                    guardarProductos();
+                    renderProductos();
+
+                    Toastify({
+                        text: "Producto borrado",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "#536620"
+                        }
+                    }).showToast();
+                }
+            });
+            return;
+        }
+
+
+        // Botón editar
+        if (target.classList.contains("boton-editar") && index !== null) {
+            const p = productos[index];
+
+            Swal.fire({
+                title: "Editar Producto",
+                html: `
+                <input id="swal-nombre" class="swal2-input" placeholder="Nombre" value="${p.nombre}">
+                <input id="swal-cantidad" type="number" class="swal2-input" placeholder="Cantidad" value="${p.cantidad}">
+                <select id="swal-categoria" class="swal2-select">
+                    ${categorias.map(c =>
+                    `<option value="${c.toLowerCase()}" ${c.toLowerCase() === p.categoria ? "selected" : ""}>${c}</option>`
+                ).join("")}
+                </select>
+            `,
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Guardar",
+
+                customClass: {
+                    popup: 'swal-popup',
+                    title: 'swal-title',
+                    confirmButton: 'swal-confirm',
+                    cancelButton: 'swal-cancel'
+                },
+                preConfirm: () => {
+                    const nombre = document.getElementById("swal-nombre").value.trim();
+                    const cantidad = parseInt(document.getElementById("swal-cantidad").value);
+                    const categoria = document.getElementById("swal-categoria").value;
+
+                    if (!nombre || isNaN(cantidad) || cantidad <= 0) {
+                        Swal.showValidationMessage("Por favor, completa todos los campos correctamente.");
+                        return false;
+                    }
+                    return { nombre, cantidad, categoria };
+
+
+                }
+            }).then(result => {
+                if (result.isConfirmed && result.value) {
+                    const { nombre, cantidad, categoria } = result.value;
+
+                    const existe = productos.find((prod, i) =>
+                        prod.nombre.toLowerCase() === nombre.toLowerCase() && i !== index
+                    );
+
+                    if (existe) {
+                        Swal.fire("Error", "Ya existe un producto con ese nombre.", "error");
+                        return;
+                    }
+
+                    productos[index] = { nombre, cantidad, categoria };
+
+                    Toastify({
+                        text: "Producto actualizado correctamente",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        style: {
+                            background: "#536620"
+                        }
+                    }).showToast();
+
+                    guardarProductos();
+                    renderProductos();
+                }
+            });
+            return;
+        }
+    });
+}
+
+// Crear lista
+if (botonCrearLista) {
+    botonCrearLista.addEventListener("click", () => {
+        const nombreLista = InputLista.value.trim();
+        if (!nombreLista) {
+            Toastify({
+                text: "Por favor, ingresa un nombre para la lista",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#FF0000"
+                }
+            }).showToast();
+            return;
+        }
+
+        if (productos.length === 0) {
+            Toastify({
+                text: "No hay productos para guardar en la lista",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#FF0000"
+                }
+            }).showToast();
+            return;
+        }
+
+
+        const nuevaLista = {
+            nombre: nombreLista,
+            productos: JSON.parse(JSON.stringify(productos))
+        };
+
+        listas.push(nuevaLista);
+        guardarListas();
+
+        productos = [];
+        guardarProductos();
+        renderProductos();
+        InputLista.value = "";
+
+        Toastify({
+            text: "Lista creada con éxito",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            style: {
+                background: "#536620"
+            }
+        }).showToast();
+
+        renderMisListas();
+    });
+}
+
+// Borrar lista
+if (botonBorrarTodo) {
+    botonBorrarTodo.addEventListener("click", () => {
         Swal.fire({
-            title: "¿Estás seguro de borrar este producto?",
+            title: "¿Deseas borrar toda la lista de productos?",
+            text: "Esta acción borrará los productos agregados hasta el momento.",
             showCancelButton: true,
             cancelButtonText: "Cancelar",
-            confirmButtonText: "Borrar Producto",
+            confirmButtonText: "Borrar Todo",
 
             customClass: {
                 popup: 'swal-popup',
@@ -155,12 +326,12 @@ listaProductos.addEventListener("click", (e) => {
 
         }).then((result) => {
             if (result.isConfirmed) {
-                productos.splice(index, 1);
+                productos = [];
                 guardarProductos();
                 renderProductos();
 
                 Toastify({
-                    text: "Producto borrado",
+                    text: "Lista de productos borrada con éxito",
                     duration: 3000,
                     gravity: "top",
                     position: "right",
@@ -170,172 +341,12 @@ listaProductos.addEventListener("click", (e) => {
                 }).showToast();
             }
         });
-        return;
-    }
-
-    // Botón editar
-    if (target.classList.contains("boton-editar") && index !== null) {
-        const p = productos[index];
-
-        Swal.fire({
-            title: "Editar Producto",
-            html: `
-                <input id="swal-nombre" class="swal2-input" placeholder="Nombre" value="${p.nombre}">
-                <input id="swal-cantidad" type="number" class="swal2-input" placeholder="Cantidad" value="${p.cantidad}">
-                <select id="swal-categoria" class="swal2-select">
-                    ${categorias.map(c =>
-                `<option value="${c.toLowerCase()}" ${c.toLowerCase() === p.categoria ? "selected" : ""}>${c}</option>`
-            ).join("")}
-                </select>
-            `,
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonText: "Guardar",
-
-            customClass: {
-                popup: 'swal-popup',
-                title: 'swal-title',
-                confirmButton: 'swal-confirm',
-                cancelButton: 'swal-cancel'
-            },
-            preConfirm: () => {
-                const nombre = document.getElementById("swal-nombre").value.trim();
-                const cantidad = parseInt(document.getElementById("swal-cantidad").value);
-                const categoria = document.getElementById("swal-categoria").value;
-
-                if (!nombre || isNaN(cantidad) || cantidad <= 0) {
-                    Swal.showValidationMessage("Por favor, completa todos los campos correctamente.");
-                    return false;
-                }
-                return { nombre, cantidad, categoria };
-
-
-            }
-        }).then(result => {
-            if (result.isConfirmed && result.value) {
-                const { nombre, cantidad, categoria } = result.value;
-
-                const existe = productos.find((prod, i) =>
-                    prod.nombre.toLowerCase() === nombre.toLowerCase() && i !== index
-                );
-
-                if (existe) {
-                    Swal.fire("Error", "Ya existe un producto con ese nombre.", "error");
-                    return;
-                }
-
-                productos[index] = { nombre, cantidad, categoria };
-
-                Toastify({
-                    text: "Producto actualizado correctamente",
-                    duration: 3000,
-                    gravity: "top",
-                    position: "right",
-                    style: {
-                        background: "#536620"
-                    }
-                }).showToast();
-
-                guardarProductos();
-                renderProductos();
-            }
-        });
-        return;
-    }
-});
-
-// Crear lista
-botonCrearLista.addEventListener("click", () => {
-    const nombreLista = InputLista.value.trim();
-    if (!nombreLista) {
-        Toastify({
-            text: "Por favor, ingresa un nombre para la lista",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#FF0000"
-            }
-        }).showToast();
-        return;
-    }
-
-    if (productos.length === 0) {
-        Toastify({
-            text: "No hay productos para guardar en la lista",
-            duration: 3000,
-            gravity: "top",
-            position: "right",
-            style: {
-                background: "#FF0000"
-            }
-        }).showToast();
-        return;
-    }
-
-    const nuevaLista = {
-        nombre: nombreLista,
-        productos: JSON.parse(JSON.stringify(productos))
-    };
-
-    listas.push(nuevaLista);
-    guardarListas();
-
-    productos = [];
-    guardarProductos();
-    renderProductos();
-    InputLista.value = "";
-
-    Toastify({
-        text: "Lista creada con éxito",
-        duration: 3000,
-        gravity: "top",
-        position: "right",
-        style: {
-            background: "#536620"
-        }
-    }).showToast();
-
-    renderMisListas();
-});
-
-// Borrar lista
-botonBorrarTodo.addEventListener("click", () => {
-    Swal.fire({
-        title: "¿Deseas borrar toda la lista de productos?",
-        text: "Esta acción borrará los productos agregados hasta el momento.",
-        showCancelButton: true,
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Borrar Todo",
-
-        customClass: {
-            popup: 'swal-popup',
-            title: 'swal-title',
-            confirmButton: 'swal-confirm',
-            cancelButton: 'swal-cancel'
-        }
-
-    }).then((result) => {
-        if (result.isConfirmed) {
-            productos = [];
-            guardarProductos();
-            renderProductos();
-
-            Toastify({
-                text: "Lista de productos borrada con éxito",
-                duration: 3000,
-                gravity: "top",
-                position: "right",
-                style: {
-                    background: "#536620"
-                }
-            }).showToast();
-        }
     });
-});
+}
 
 // Renderizar listas guardadas
 function renderMisListas() {
+    if (!misListas) return;
     misListas.innerHTML = "";
     listas.forEach((unaLista, index) => {
         const li = document.createElement("li");
@@ -348,9 +359,12 @@ function renderMisListas() {
     });
 }
 
+if (misListas){
 renderMisListas();
+}
 
 // Abrir lista
+if (misListas){
 misListas.addEventListener("click", (e) => {
     const target = e.target;
 
@@ -401,5 +415,36 @@ misListas.addEventListener("click", (e) => {
         return;
     }
 });
+}   
 
 
+// Renderizar listas en nueva page
+document.addEventListener("DOMContentLoaded", () => {
+    const tituloLista = document.getElementById("listaSeleccionada");
+    const contenedorProductos = document.getElementById("productosMisListas");
+
+    if (tituloLista && contenedorProductos) {
+
+        const listaSeleccionada = JSON.parse(localStorage.getItem("listaSeleccionada"));
+
+        if (!listaSeleccionada) {
+            tituloLista.textContent = "No se encontró la lista";
+            return;
+        }
+        tituloLista.textContent = listaSeleccionada.nombre;
+        contenedorProductos.innerHTML = "";
+        listaSeleccionada.productos.forEach(prod => {
+            const div = document.createElement("div");
+            div.classList.add("producto-mislistas");
+
+            div.innerHTML = `
+                <p><strong>${prod.nombre}</strong></p>
+                <p>Cantidad: ${prod.cantidad}</p>
+                <p>Categoría: ${prod.categoria}</p>
+                <hr>
+            `;
+
+            contenedorProductos.appendChild(div);
+        });
+    }
+});
