@@ -1,4 +1,11 @@
 // Login
+// DOM
+const formLogin = document.getElementById("formLogin");
+const botonRegistro = document.getElementById("botonRegistro");
+
+formLogin.querySelector('button[type="submit"]').disabled = true;
+cargarUsuarios();
+
 // Cargar usuarios creados desde json con fetch
 let usuariosJASON = [];
 async function cargarUsuarios() {
@@ -11,12 +18,6 @@ async function cargarUsuarios() {
         console.error(err);
     }
 }
-formLogin.querySelector('button[type="submit"]').disabled = true;
-cargarUsuarios();
-
-// Botones del DOM
-const formLogin = document.getElementById("formLogin");
-const botonRegistro = document.getElementById("botonRegistro");
 
 // Usuarios en el localStorage
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
