@@ -1,22 +1,24 @@
-[
-    {
-        "usuario": "test",
-        "email": "test@mail.com",
-        "password": "test123"
-    },
-    {
-        "usuario": "alebailo",
-        "email": "alebailo@mail.com",
-        "password": "1234"
-    },
-    {
-        "usuario": "juanperez",
-        "email": "juanperez@mail.com",
-        "password": "juan1234"
-    },
-    {
-        "usuario": "maria",
-        "email": "maria@mail.com",
-        "password": "maria5678"  
-    }
-]
+{
+    "usuarios": [
+        {
+            "usuario": "test",
+            "email": "test@mail.com",
+            "password": "test123"
+        },
+        {
+            "usuario": "alebailo",
+            "email": "alebailo@mail.com",
+            "password": "1234"
+        },
+        {
+            "usuario": "juanperez",
+            "email": "juanperez@mail.com",
+            "password": "juan1234"
+        },
+        {
+            "usuario": "maria",
+            "email": "maria@mail.com",
+            "password": "maria5678"
+        }
+    ]
+}
